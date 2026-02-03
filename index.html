@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Toni's Tuning</title>
+
+<style>
+:root{
+  --bg:#0f1220;
+  --card:#171a2e;
+  --primary:#ff6c40;
+  --secondary:#4ade80;
+  --text:#e5e7eb;
+  --muted:#9ca3af;
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family: "Inter", Arial, sans-serif;
+  background: linear-gradient(180deg, #151836, #0f1220);
+  color:var(--text);
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.card{
+  background:var(--card);
+  width:100%;
+  max-width:820px;
+  border-radius:16px;
+  padding:24px;
+  box-shadow:0 20px 50px rgba(0,0,0,.5);
+}
+
+header{
+  text-align:center;
+  margin-bottom:20px;
+}
+
+header h1{
+  margin:0;
+  font-size:1.8rem;
+  letter-spacing:1px;
+}
+
+header span{
+  color:var(--primary);
+  font-size:.9rem;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
+  gap:12px;
+}
+
+.item{
+  background:#10132a;
+  padding:10px;
+  border-radius:10px;
+}
+
+.item input{
+  width:100%;
+  background:transparent;
+  border:1px solid #2b2f55;
+  border-radius:8px;
+  padding:10px;
+  color:var(--text);
+  font-size:1rem;
+}
+
+.item input:focus{
+  outline:none;
+  border-color:var(--primary);
+}
+
+.result{
+  margin-top:6px;
+  font-size:.9rem;
+  color:var(--secondary);
+}
+
+.summary{
+  margin-top:22px;
+  display:grid;
+  gap:12px;
+}
+
+.summary .box{
+  background:#10132a;
+  border-radius:14px;
+  padding:14px 16px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:1rem;
+}
+
+.summary .investido{
+  border-left:4px solid #64748b;
+}
+
+.summary .lucro{
+  border-left:4px solid var(--secondary);
+}
+
+.summary .lucro strong{
+  color: var(--secondary);
+}
+
+
+.summary .cobrar{
+  background: linear-gradient(135deg, #ff6c40, #ff9066);
+  color:#0f1220;
+  font-size:1.15rem;
+  font-weight:700;
+  box-shadow:0 10px 25px rgba(255,108,64,.35);
+  text-transform: uppercase;
+  flex-direction:column;
+  align-items:center;
+  justify-content: center;
+  text-align: center;
+  gap:10px;
+  }
+
+.summary .cobrar strong{
+  font-size:1.8rem;        /* bem maior */
+  font-weight:800;
+  color:#0b0b0b;           /* preto quase total */
+  letter-spacing:0.5px;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.35);
+}
+
+.summary strong{
+  color:var(--primary);
+}
+
+button{
+  margin-top:20px;
+  width:100%;
+  background:var(--primary);
+  border:none;
+  border-radius:12px;
+  padding:14px;
+  font-size:1rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:.2s;
+}
+
+button:hover{
+  filter:brightness(1.1);
+}
+</style>
+</head>
+
+<body>
+<div class="card">
+  <header>
+    <h1>MECÂNICA DO TONI</h1>
+    <span>Calculadora automática +25%</span>
+  </header>
+
+  <div class="grid" id="items"></div>
+
+  <div class="summary">
+  <div class="box investido">
+    <span>Total investido</span>
+    <strong id="totalBase">R$ 0,00</strong>
+  </div>
+
+  <div class="box lucro">
+    <span>Lucro</span>
+    <strong id="profit">R$ 0,00</strong>
+  </div>
+
+  <div class="box cobrar">
+    <span>Cliente paga</span>
+    <strong id="totalFinal">R$ 0,00</strong>
+  </div>
+</div>
+
+  <button onclick="clearAll()">Limpar tudo</button>
+</div>
+
+<script>
+const itemsContainer = document.getElementById("items");
+const PERCENT = 1.25;
+
+// cria 20 inputs automaticamente
+for(let i=0;i<20;i++){
+  const div = document.createElement("div");
+  div.className="item";
+  div.innerHTML=`
+    <input type="number" placeholder="Valor R$" oninput="calculate()" />
+    <div class="result"></div>
+  `;
+  itemsContainer.appendChild(div);
+}
+
+function format(v){
+  return v.toLocaleString("pt-BR",{style:"currency",currency:"BRL"});
+}
+
+function calculate(){
+  let total=0;
+  document.querySelectorAll(".item").forEach(item=>{
+    const input=item.querySelector("input");
+    const result=item.querySelector(".result");
+    const value=parseFloat(input.value);
+    if(!isNaN(value)){
+      const calc=value*PERCENT;
+      result.textContent=format(calc);
+      total+=value;
+    }else{
+      result.textContent="";
+    }
+  });
+
+  const totalFinal=total*PERCENT;
+  document.getElementById("totalBase").textContent=format(total);
+  document.getElementById("totalFinal").textContent=format(totalFinal);
+  document.getElementById("profit").textContent=format(totalFinal-total);
+}
+
+function clearAll(){
+  document.querySelectorAll("input").forEach(i=>i.value="");
+  document.querySelectorAll(".result").forEach(r=>r.textContent="");
+  calculate();
+}
+</script>
+</body>
+</html>
