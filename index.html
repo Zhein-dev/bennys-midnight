@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Toni's Tuning</title>
+<title>Bennys - Midnight</title>
 
 <style>
 :root{
@@ -11,20 +11,26 @@
   --card:#171a2e;
   --primary:#ff6c40;
   --secondary:#4ade80;
+  --danger:#f87171;
   --text:#e5e7eb;
   --muted:#9ca3af;
+  --line:#2b2f55;
+  --inner:#10132a;
 }
 
 *{box-sizing:border-box}
+
+html{scroll-behavior:smooth}
 
 body{
   margin:0;
   font-family: "Inter", Arial, sans-serif;
   background: linear-gradient(180deg, #151836, #0f1220);
+  background-attachment: fixed;
   color:var(--text);
   min-height:100vh;
   display:flex;
-  align-items:center;
+  align-items:flex-start;
   justify-content:center;
   padding:20px;
 }
@@ -54,6 +60,35 @@ header span{
   font-size:.9rem;
 }
 
+/* ===== Abas ===== */
+.tabs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+  background:var(--inner);
+  padding:6px;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+.tabs button{
+  margin:0;
+  background:transparent;
+  color:var(--muted);
+  padding:10px;
+  border-radius:8px;
+  font-size:.95rem;
+}
+
+.tabs button.active{
+  background:var(--primary);
+  color:#0f1220;
+}
+
+.panel{display:none}
+.panel.active{display:block}
+
+/* ===== Calculadora ===== */
 .grid{
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
@@ -61,7 +96,7 @@ header span{
 }
 
 .item{
-  background:#10132a;
+  background:var(--inner);
   padding:10px;
   border-radius:10px;
 }
@@ -69,7 +104,7 @@ header span{
 .item input{
   width:100%;
   background:transparent;
-  border:1px solid #2b2f55;
+  border:1px solid var(--line);
   border-radius:8px;
   padding:10px;
   color:var(--text);
@@ -94,7 +129,7 @@ header span{
 }
 
 .summary .box{
-  background:#10132a;
+  background:var(--inner);
   border-radius:14px;
   padding:14px 16px;
   display:flex;
@@ -158,41 +193,600 @@ button{
 button:hover{
   filter:brightness(1.1);
 }
+
+/* ===== Manual ===== */
+.toc{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-bottom:20px;
+}
+
+.toc a{
+  background:var(--inner);
+  border:1px solid var(--line);
+  color:var(--text);
+  text-decoration:none;
+  font-size:.85rem;
+  padding:7px 12px;
+  border-radius:999px;
+}
+
+.toc a:hover{
+  border-color:var(--primary);
+  color:var(--primary);
+}
+
+.manual section{
+  background:var(--inner);
+  border-radius:14px;
+  padding:18px 20px;
+  margin-bottom:14px;
+  line-height:1.6;
+  scroll-margin-top:16px;
+}
+
+.manual h2{
+  margin:0 0 12px;
+  font-size:1.3rem;
+  color:var(--primary);
+}
+
+.manual h3{
+  margin:20px 0 6px;
+  font-size:1.05rem;
+}
+
+.manual h4{
+  margin:16px 0 4px;
+  font-size:.95rem;
+  color:var(--muted);
+}
+
+.manual h5{
+  margin:12px 0 4px;
+  font-size:.9rem;
+  color:var(--muted);
+}
+
+.manual p{margin:6px 0}
+
+.manual ul, .manual ol{
+  margin:6px 0;
+  padding-left:22px;
+}
+
+.manual strong{color:#fff}
+
+.manual blockquote{
+  margin:10px 0;
+  padding:8px 14px;
+  border-left:3px solid var(--primary);
+  background:rgba(255,108,64,.08);
+  border-radius:0 8px 8px 0;
+}
+
+.manual .alert{
+  color:var(--danger);
+  font-weight:800;
+  border-left-color:var(--danger);
+  background:rgba(248,113,113,.1);
+}
+
+.manual figure{
+  margin:12px 0;
+}
+
+.manual figure img{
+  display:block;
+  max-width:100%;
+  border-radius:10px;
+  border:1px solid var(--line);
+}
+
+.manual figcaption{
+  font-size:.85rem;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.manual .pair{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.manual .pair figure{margin:0}
+
+.manual table{
+  width:100%;
+  border-collapse:collapse;
+  margin:10px 0;
+  font-size:.95rem;
+}
+
+.manual th, .manual td{
+  border:1px solid var(--line);
+  padding:8px 10px;
+  text-align:center;
+}
+
+.manual th{
+  background:#1c2040;
+  color:var(--primary);
+}
+
+.manual td:first-child, .manual th:first-child{text-align:left}
+
+.manual .updated{
+  font-size:.8rem;
+  color:var(--muted);
+  font-style:italic;
+}
+
+.manual .tip{
+  background:rgba(74,222,128,.08);
+  border:1px solid rgba(74,222,128,.3);
+  border-radius:10px;
+  padding:10px 14px;
+  margin:10px 0;
+}
+
+.top-link{
+  display:block;
+  text-align:center;
+  color:var(--muted);
+  font-size:.85rem;
+  margin-top:6px;
+}
 </style>
 </head>
 
 <body>
 <div class="card">
   <header>
-    <h1>MECÂNICA DO TONI</h1>
-    <span>Calculadora automática +25%</span>
+    <h1>Bennys - Midnight</h1>
+    <span>Calculadora automática +30%</span>
   </header>
 
-  <div class="grid" id="items"></div>
+  <nav class="tabs">
+    <button type="button" data-tab="calculadora" onclick="showTab('calculadora')">Calculadora</button>
+    <button type="button" data-tab="manual" onclick="showTab('manual')">Manual</button>
+  </nav>
 
-  <div class="summary">
-  <div class="box investido">
-    <span>Total investido</span>
-    <strong id="totalBase">R$ 0,00</strong>
+  <!-- ===================== CALCULADORA ===================== -->
+  <div class="panel" id="calculadora">
+    <div class="grid" id="items"></div>
+
+    <div class="summary">
+    <div class="box investido">
+      <span>Total investido</span>
+      <strong id="totalBase">R$ 0,00</strong>
+    </div>
+
+    <div class="box lucro">
+      <span>Lucro</span>
+      <strong id="profit">R$ 0,00</strong>
+    </div>
+
+    <div class="box cobrar">
+      <span>Cliente paga</span>
+      <strong id="totalFinal">R$ 0,00</strong>
+    </div>
   </div>
 
-  <div class="box lucro">
-    <span>Lucro</span>
-    <strong id="profit">R$ 0,00</strong>
+    <button onclick="clearAll()">Limpar tudo</button>
   </div>
 
-  <div class="box cobrar">
-    <span>Cliente paga</span>
-    <strong id="totalFinal">R$ 0,00</strong>
-  </div>
-</div>
+  <!-- ===================== MANUAL ===================== -->
+  <div class="panel manual" id="manual">
 
-  <button onclick="clearAll()">Limpar tudo</button>
+    <div class="toc" id="topo">
+      <a href="#m-inicio">Início</a>
+      <a href="#m-1">1. Gestão e Hierarquia</a>
+      <a href="#m-2">2. Estabelecimento</a>
+      <a href="#m-3">3. Trava e Nitro</a>
+      <a href="#m-4">4. Atendimento</a>
+      <a href="#m-5">5. Aparência</a>
+      <a href="#m-6">6. Performance</a>
+      <a href="#m-7">7. Plotagens e Badges</a>
+      <a href="#m-8">8. Uniforme</a>
+    </div>
+
+    <section id="m-inicio">
+      <h2>Manual Bennys</h2>
+      <p>Bem-vindo ao manual interno da <strong>Bennys</strong>.</p>
+      <p>Este manual foi organizado para servir como base de treinamento, consulta rápida e padronização de atendimento da equipe.</p>
+
+      <h3>Objetivos do manual</h3>
+      <ul>
+        <li>Padronizar o atendimento ao cliente.</li>
+        <li>Organizar os valores de trava e nitro.</li>
+        <li>Explicar os cuidados nas aplicações de aparência e performance.</li>
+        <li>Registrar orientações sobre plotagens e badges.</li>
+        <li>Definir o padrão de uniforme da equipe.</li>
+      </ul>
+      <p>Use este manual como referência oficial para o funcionamento da mecânica.</p>
+      <p class="updated">Atualizado 02/03/2026</p>
+    </section>
+
+    <section id="m-1">
+      <h2>1. Gestão e Hierarquia</h2>
+
+      <h3>Direção da Bennys</h3>
+      <p>A estrutura principal da Bennys é composta por:</p>
+      <ul>
+        <li><strong>Antonio Carrijo (Toni)</strong> - Proprietário</li>
+        <li><strong>Robson Carrijo (Taker)</strong> - Sócio-Proprietário</li>
+        <li><strong>Pablito</strong> - Gerente da Mecânica</li>
+        <li><strong>Laura</strong> - Gerente</li>
+        <li><strong>BG</strong> - Gerente</li>
+        <li><strong>Luiz</strong> - Gerente</li>
+        <li><strong>Drake (Japa)</strong> - Gerente</li>
+        <li><strong>Arlindo</strong> - Gerente de Metas</li>
+      </ul>
+
+      <h3>Organização interna</h3>
+      <p>Toda a equipe deve respeitar a linha de gestão da mecânica, buscando manter:</p>
+      <ul>
+        <li>organização no atendimento;</li>
+        <li>clareza nos valores passados ao cliente;</li>
+        <li>cuidado na aplicação dos itens;</li>
+        <li>responsabilidade com o caixa e com os custos de cada serviço.</li>
+      </ul>
+
+      <h3>Padrão esperado da equipe</h3>
+      <p>Todos os membros da Bennys devem:</p>
+      <ul>
+        <li>atender com educação e respeito, independente do cliente;</li>
+        <li>falar num tom que não atrapalhe os colegas;</li>
+        <li>evitar erros em pintura e instalação;</li>
+        <li>seguir o padrão de uniforme definido pela mecânica.</li>
+      </ul>
+      <a class="top-link" href="#topo">↑ voltar ao índice</a>
+    </section>
+
+    <section id="m-2">
+      <h2>2. Estabelecimento</h2>
+
+      <h3>Bennys</h3>
+      <figure><img src="manual-img/1.jpg" alt="Fachada da Bennys" loading="lazy"></figure>
+
+      <h3>Baias</h3>
+      <p>A mecânica tem 4 baias internas e uma externa, além da baia de atendimentos para helicóptero, podendo cada uma ser utilizada por um veículo.</p>
+      <figure><img src="manual-img/2.jpg" alt="Baias Internas" loading="lazy"><figcaption>Baias Internas</figcaption></figure>
+      <figure><img src="manual-img/3.jpg" alt="Baia Externa" loading="lazy"><figcaption>Baia Externa</figcaption></figure>
+      <figure><img src="manual-img/4.jpg" alt="Heliponto para Tunning" loading="lazy"><figcaption>Heliponto para Tunning</figcaption></figure>
+
+      <h3>Abrir/Fechar Mecânica</h3>
+      <p>Sempre que for começar a trabalhar, abrir a empresa na sala do vestiário e o portão frontal.</p>
+      <p>Abrir as portas laterais <strong>APENAS</strong> para a entrada de veículos maiores.</p>
+      <p>Lembrar <strong>SEMPRE</strong> de fechar a empresa quando for o último a sair de serviço e <strong>TODAS</strong> as portas da mecânica.</p>
+      <figure><img src="manual-img/5.jpg" alt="Sala do vestiário" loading="lazy"></figure>
+      <div class="pair">
+        <figure><img src="manual-img/6.jpg" alt="Mecânica FECHADA" width="207" loading="lazy"><figcaption>Mecânica FECHADA</figcaption></figure>
+        <figure><img src="manual-img/7.jpg" alt="Mecânica ABERTA" width="203" loading="lazy"><figcaption>Mecânica ABERTA</figcaption></figure>
+      </div>
+
+      <h3>Sala do Nitro</h3>
+      <p>Na esquerda o armário onde devem ser colocadas as metas e retirado os nitros, e na direita a produção de Nitro.</p>
+      <figure><img src="manual-img/8.jpg" alt="Sala do Nitro" loading="lazy"></figure>
+      <a class="top-link" href="#topo">↑ voltar ao índice</a>
+    </section>
+
+    <section id="m-3">
+      <h2>3. Trava e Nitro</h2>
+
+      <h3>Farm de Nitro</h3>
+      <p>O Farm de Nitro deve ser para a Meta Semanal ou para uma quantia de uso próprio.</p>
+      <p><strong>PROIBIDO</strong> estocar Nitro em casa. Mantenha apenas o nitro da sua mochila que servirá para uso e evite quantidades exorbitantes.</p>
+
+      <h3>Registro do Baú</h3>
+      <p>Todo item retirado e vendido deve ser registrado na Aba Vendas e Baú-Mec-entrada/saída.</p>
+      <p>Tenha <strong>MUITO CUIDADO</strong> e evite ficar retirando itens do baú sem registrar, passível de cobrança extrema.</p>
+
+      <h3>Valor Repassado</h3>
+      <p><strong>Toda</strong> venda de nitro ou trava deve ter um valor repassado para a empresa.</p>
+      <p>É <strong>PROIBIDO</strong> vender nitro para lucrar 100% para si, passível de punição <strong>EXTREMA</strong>.</p>
+      <p>O nitro é dividido em 50% e a trava só será cobrado o preço de custo.</p>
+
+      <h3>Nitro</h3>
+      <p>Deve repassar uma parte da venda para o PIX 6680 - Antonio Carrijo e registrar na aba Vendas.</p>
+      <table>
+        <thead><tr><th>Quantidade</th><th>Valor unitário</th><th>Valor repassado p 6680</th></tr></thead>
+        <tbody>
+          <tr><td>Padrão</td><td>R$5.000</td><td>R$2.500</td></tr>
+          <tr><td>+100</td><td>R$4.000</td><td>R$2.500</td></tr>
+          <tr><td>+200</td><td>R$3.500</td><td>R$2.000</td></tr>
+          <tr><td>+1.000</td><td>R$3.000</td><td>R$2.000</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Trava</h3>
+      <p>Deve repassar R$5.000 da fabricaçao das travas para o PIX 6680 - Antonio Carrijo e registrar na aba Vendas.</p>
+      <table>
+        <thead><tr><th>Quantidade</th><th>Valor unitário</th></tr></thead>
+        <tbody>
+          <tr><td>Padrão</td><td>R$7.000</td></tr>
+          <tr><td>+100</td><td>R$6.500</td></tr>
+          <tr><td>+500</td><td>R$6.000</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Observações</h3>
+      <ul>
+        <li>Sempre confirme com o cliente qual quantidade ele deseja.</li>
+        <li>Antes de fechar a venda, deixe claro o valor unitário aplicado ao pedido.</li>
+        <li>Em vendas maiores, confirme a faixa de desconto correta antes de cobrar.</li>
+      </ul>
+      <a class="top-link" href="#topo">↑ voltar ao índice</a>
+    </section>
+
+    <section id="m-4">
+      <h2>4. Atendimento e Boas Práticas</h2>
+
+      <h3>Regras gerais</h3>
+      <p>Utilize <strong>SEMPRE</strong> a calculadora para facilitar o trabalho.</p>
+      <div class="tip">A calculadora está na aba <a href="#" onclick="showTab('calculadora');return false" style="color:var(--secondary)"><strong>Calculadora</strong></a>, aqui mesmo nesta página.</div>
+      <p><strong>Evite</strong> falar <strong>alto</strong> para não atrapalhar os colegas nas outras baias.</p>
+      <p><strong>Proibido</strong> remover Tuning/Blindagem de veículos, permitido apenas opcionais (Suspensão, 2Step) seguindo o pedido do cliente.</p>
+
+      <h4>Ordem de Atendimento em Fila</h4>
+      <p>Os mecânicos em serviço devem seguir a fila de atendimento, sem passar na frente uns dos outros.</p>
+      <ul>
+        <li>Atendeu um cliente? Vai para o fim da fila e espera sua vez novamente.</li>
+        <li>Não quer atender aquele cliente por qualquer motivo? Também vai para o fim da fila, para não atrapalhar a ordem.</li>
+      </ul>
+      <p>Sempre converse com os mecânicos em serviço no momento para estabelecerem a fila e evitar estresses entre os funcionários nos atendimentos.</p>
+
+      <h4>1. Cada item aplicado sai da conta</h4>
+      <p>Cada item instalado gera custo imediatamente na sua conta então tenha certeza quando aplicar.</p>
+      <h5>Se estiver sem dinheiro em conta</h5>
+      <p>Caso esteja sem dinheiro, confirme o preço com o cliente e peça, um adiantamento antes de aplicar.</p>
+
+      <h4>2. Confirmar antes de aplicar</h4>
+      <p>Sempre confirme com o cliente a certeza de cada item.</p>
+      <p>Depois de aplicado, <strong>não tem volta</strong> e o item será cobrado.</p>
+
+      <h4>3. Como responder ao cliente sobre "full tuning"</h4>
+      <p>Quando o cliente perguntar:</p>
+      <blockquote>"Quanto sai um full tuning?".</blockquote>
+      <p>O procedimento correto é:</p>
+      <ol>
+        <li>Utilizar a calculadora para fazer o orçamento dos itens <strong>sem</strong> aplicar.</li>
+        <li>Informar ao cliente o valor final.</li>
+        <li>Caso o cliente confirme, aplicar os itens.</li>
+      </ol>
+      <h5>O que confirmar nesse momento</h5>
+      <p>Um Full Tuning consiste dos seguintes itens.</p>
+      <ul>
+        <li>Motor</li>
+        <li>Freio</li>
+        <li>Transmissão</li>
+        <li>Suspensão (Opcional)</li>
+        <li>Turbo</li>
+        <li>Nitro</li>
+        <li>Blindagem</li>
+      </ul>
+      <p>O 2 Step é opcional e <strong>não</strong> faz parte do Full Tuning, sempre pergunte ao cliente se tem interesse.</p>
+      <h5>Ordem de valor dos itens</h5>
+      <p>Quando o cliente perguntar o que é mais caro ou mais barato:</p>
+      <ul>
+        <li><strong>Blindagem</strong> costuma ser o item mais caro;</li>
+        <li><strong>Turbo</strong> vem logo depois;</li>
+        <li><strong>Motor, Freio, Transmissão, Suspensão e Nitro</strong> costumam ser mais acessíveis.</li>
+      </ul>
+      <h5>Quando o cliente perguntar valor sem estar com o carro</h5>
+      <p>Se o cliente perguntar o preço de um item sem estar com o veículo na mecânica, informe que:</p>
+      <ul>
+        <li><strong>não é possível saber o valor exato sem o carro</strong>;</li>
+        <li>o preço varia de carro para carro, de acordo com o valor do veículo.</li>
+      </ul>
+
+      <h4>4. Nem todos os carros possuem todos os itens</h4>
+      <p>Nem todo carro terá todas as opções disponíveis.</p>
+      <p>Exemplos:</p>
+      <ul>
+        <li>alguns terão poucas opções de lataria;</li>
+        <li>alguns não terão pintura interna;</li>
+        <li>outros terão limitações em categorias específicas.</li>
+      </ul>
+      <p>Apenas verificando cada aba para ter certeza de todas opções.</p>
+
+      <h4>5. Carro travado no chão</h4>
+      <p>Alguns itens podem travar o carro no chão.</p>
+      <p>Quando isso acontecer, use o <strong>elevador</strong> para destravar.</p>
+
+      <h4>6. Remoção de itens</h4>
+      <ul>
+        <li>Itens de <strong>Performance</strong> e <strong>Lataria</strong> não possuem custo para remover.</li>
+        <li>Apenas as <strong>trocas de pintura</strong> possuem custo.</li>
+        <li>Ao remover 2 Step e Eixo o cliente deve guardar o carro e retirar novamente para atualizar.</li>
+      </ul>
+
+      <h3>Padrão de atendimento recomendado</h3>
+      <p>Durante o atendimento:</p>
+      <ul>
+        <li>seja claro ao passar os valores;</li>
+        <li>confirme sempre antes de apertar ENTER em qualquer aplicação;</li>
+        <li>evite pressa em pintura e personalização;</li>
+        <li>mantenha o cliente informado durante todo o processo.</li>
+        <li><strong>NÃO</strong> nos responsabilizamos por carros clonados, caso o cliente tenha interesse terá que pagar novamente.</li>
+      </ul>
+      <a class="top-link" href="#topo">↑ voltar ao índice</a>
+    </section>
+
+    <section id="m-5">
+      <h2>5. Aplicações de Aparência</h2>
+
+      <h3>Dicas e cuidados</h3>
+
+      <h4>1. Mostrar estética antes de aplicar</h4>
+      <p>É permitido navegar pelos itens para mostrar ao cliente como ficará a estética do carro.</p>
+      <p>Exemplos:</p>
+      <ul>
+        <li>para-choques;</li>
+        <li>saias;</li>
+        <li>detalhes visuais em geral.</li>
+      </ul>
+      <p>Se o cliente <strong>não gostar</strong>, basta voltar no <strong>ESC</strong>.</p>
+      <p>Para aplicar de fato, use <strong>ENTER</strong>.</p>
+
+      <h4>2. Atenção máxima na categoria Pintura</h4>
+      <p>O maior cuidado deve ser dentro da categoria <strong>Pintura</strong>.</p>
+      <p>Ao navegar pelas cores, se o cliente <strong>não gostar</strong> e quiser voltar:</p>
+      <ul>
+        <li>use <strong>ESC</strong> para sair sem aplicar;</li>
+        <li><strong>não use BACKSPACE</strong>, pois isso pode aplicar a pintura.</li>
+      </ul>
+
+      <h5>2.1 Primária e Secundária Camaleão</h5>
+      <p>Dentro das opções de <strong>Primária</strong> e <strong>Secundária Camaleão</strong>, já é possível navegar para o lado e mostrar as variações ao cliente.</p>
+
+      <h5>2.2 Primária e Secundária Especial</h5>
+      <p>Em <strong>Primária</strong> e <strong>Secundária Especial</strong>, é possível personalizar na seleção de cores, onde dá para navegar pelo <strong>RGB</strong> e mostrar as opções.</p>
+
+      <h5>2.3 Cores padrão</h5>
+      <p>Em <strong>Primária</strong> e <strong>Secundária</strong> comuns, as cores já são pré-definidas. Basta clicar para mostrar ao cliente.</p>
+
+      <h5>2.4 Regra geral em pintura</h5>
+      <p>Em qualquer opção de pintura, caso o cliente não goste da cor ou desista:</p>
+      <ul>
+        <li>volte SEMPRE no <strong>ESC</strong>.</li>
+      </ul>
+
+      <h5>2.5 Remover perolado</h5>
+      <p>Para retirar o <strong>Perolado</strong>, deve ser aplicado <strong>Perolado Preto</strong>.</p>
+
+      <h3>Resumo prático</h3>
+      <ul>
+        <li><strong>ESC ou BACKSPACE</strong>: voltar sem aplicar os itens, cuidado com BACKSPACE e pinturas;</li>
+        <li><strong>ENTER</strong>: aplicar o item de Estética e Performance;</li>
+        <li><strong>BACKSPACE</strong>: Aplicar pintura.</li>
+      </ul>
+      <a class="top-link" href="#topo">↑ voltar ao índice</a>
+    </section>
+
+    <section id="m-6">
+      <h2>6. Aplicações de Performance</h2>
+
+      <h3>Regras gerais da performance</h3>
+
+      <h4>1. Sempre perguntar sobre a Blindagem no Full Tuning</h4>
+      <p>Por ser o item mais caro, sempre pergunte sobre a blindagem no Full Tuning e se o cliente pedir faça o orçamento antes de aplicar.</p>
+
+      <h4>2. Suspensão exige confirmação extra</h4>
+      <p>Suspensão é um item que varia muito de gosto para gosto.</p>
+      <p>A suspensão full mais baixa muda conforme o carro, e em alguns veículos pode pegar em calçadas ou dificultar o uso.</p>
+      <p>Por isso, sempre pergunte:</p>
+      <ul>
+        <li>se o cliente quer a mais baixa possível; ou</li>
+        <li>se prefere um nível antes do full.</li>
+      </ul>
+
+      <h4>3. Nome correto do item "pow pow pow"</h4>
+      <p>Quando o cliente pedir o item que faz os barulhos de escape, o nome correto é:</p>
+      <ul>
+        <li><strong>2 Step</strong></li>
+      </ul>
+      <p>Esse item fica dentro da opção <strong>Preparação</strong>.</p>
+
+      <h4>4. Aplicação de Nitro</h4>
+      <p>Se o carro não tiver nitro aplicado anteriormente, não adianta apenas comprar o nitro.</p>
+      <p>Antes, é necessário aplicar na máquina a opção de <strong>Nitro</strong> ao menos uma vez.</p>
+
+      <h3>Resumo prático</h3>
+      <p>Antes de instalar qualquer performance, confirme:</p>
+      <ul>
+        <li>se terá Suspensão e Blindagem no Full Tuning.</li>
+        <li>se a suspensão será full ou um nível abaixo;</li>
+        <li>se o cliente quer incluir 2 Step;</li>
+        <li>se o veículo já estiver apto para receber nitro, aplicar diretamente o cilindro.</li>
+      </ul>
+      <a class="top-link" href="#topo">↑ voltar ao índice</a>
+    </section>
+
+    <section id="m-7">
+      <h2>7. Plotagens e Badges</h2>
+
+      <h3>Organização de badges da Polícia</h3>
+      <p>Para aplicação de badges, siga a leitura numérica abaixo:</p>
+      <ul>
+        <li><strong>1º número</strong> - Gaiola</li>
+        <li><strong>2º número</strong> - Paralama Dianteiro</li>
+        <li><strong>3º número</strong> - Paralama Traseiro</li>
+      </ul>
+      <h4>Exemplo</h4>
+      <p>Se o cliente informar a sequência <strong>123</strong>, a leitura deve ser:</p>
+      <ul>
+        <li>1 na Gaiola;</li>
+        <li>2 no Paralama Dianteiro;</li>
+        <li>3 no Paralama Traseiro.</li>
+      </ul>
+
+      <h3>Dicas para plotagens</h3>
+      <h4>1. Confirmar posição antes de aplicar</h4>
+      <p>Antes de finalizar qualquer plotagem ou badge, confirme com o cliente a posição correta de cada elemento.</p>
+      <h4>2. Validar a ordem informada</h4>
+      <p>Quando o cliente passar números ou sequência para badges, confirme em voz ou no chat a ordem recebida antes de aplicar.</p>
+      <h4>3. Mostrar o resultado sempre que possível</h4>
+      <p>Sempre que der, apresente visualmente ao cliente como a plotagem ou badge ficou antes de encerrar o atendimento.</p>
+      <a class="top-link" href="#topo">↑ voltar ao índice</a>
+    </section>
+
+    <section id="m-8">
+      <h2>8. Uniforme Padrão</h2>
+
+      <h3>Regra geral</h3>
+      <p>O uniforme da Bennys deve ser seguido conforme o padrão abaixo.</p>
+      <blockquote class="alert">NÃO USAR MÁSCARA</blockquote>
+
+      <h3>Uniforme feminino</h3>
+      <h4>Obrigatório</h4>
+      <ul>
+        <li><strong>Jaqueta:</strong> 609</li>
+        <li><strong>Camiseta:</strong> 261 (Cinto)</li>
+        <li><strong>Calça:</strong> preta (na referência enviada, calça 231)</li>
+      </ul>
+      <h4>Opcional</h4>
+      <ul>
+        <li><strong>Luvas pretas:</strong> mãos 57</li>
+      </ul>
+      <figure><img src="manual-img/9.jpg" alt="Uniforme feminino" width="261" loading="lazy"></figure>
+
+      <h3>Uniforme masculino</h3>
+      <h4>Obrigatório</h4>
+      <ul>
+        <li><strong>Jaqueta:</strong> 654</li>
+        <li><strong>Camiseta:</strong> 218 (Cinto)</li>
+        <li><strong>Calça:</strong> preta</li>
+      </ul>
+      <h4>Opcional</h4>
+      <ul>
+        <li><strong>Luvas pretas</strong></li>
+      </ul>
+      <figure><img src="manual-img/10.jpg" alt="Uniforme masculino" width="226" loading="lazy"></figure>
+
+      <h3>Observação importante</h3>
+      <p>O uniforme serve para organização e para identificarmos quem está em serviço.</p>
+      <a class="top-link" href="#topo">↑ voltar ao índice</a>
+    </section>
+
+  </div>
 </div>
 
 <script>
 const itemsContainer = document.getElementById("items");
-const PERCENT = 1.25;
+const PERCENT = 1.30;
+
+// alterna entre as abas Calculadora / Manual
+function showTab(name){
+  document.querySelectorAll(".panel").forEach(p=>p.classList.toggle("active", p.id===name));
+  document.querySelectorAll(".tabs button").forEach(b=>b.classList.toggle("active", b.dataset.tab===name));
+  history.replaceState(null, "", name==="manual" ? "#manual" : location.pathname);
+}
+
+showTab(location.hash.startsWith("#m") ? "manual" : "calculadora");
 
 // cria 20 inputs automaticamente
 for(let i=0;i<20;i++){
@@ -231,7 +825,7 @@ function calculate(){
 }
 
 function clearAll(){
-  document.querySelectorAll("input").forEach(i=>i.value="");
+  document.querySelectorAll(".item input").forEach(i=>i.value="");
   document.querySelectorAll(".result").forEach(r=>r.textContent="");
   calculate();
 }
