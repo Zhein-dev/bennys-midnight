@@ -7,15 +7,16 @@
 
 <style>
 :root{
-  --bg:#0f1220;
-  --card:#171a2e;
-  --primary:#ff6c40;
-  --secondary:#4ade80;
-  --danger:#f87171;
-  --text:#e5e7eb;
-  --muted:#9ca3af;
-  --line:#2b2f55;
-  --inner:#10132a;
+  --bg:#121417;
+  --card:#1a1d22;
+  --inner:#22262c;
+  --line:#33383f;
+  --primary:#8fa8d8;          /* azul acinzentado suave */
+  --primary-soft:rgba(143,168,216,.14);
+  --secondary:#7fc8a0;        /* verde suave */
+  --danger:#e08a8a;
+  --text:#e4e6ea;
+  --muted:#9aa1ab;
 }
 
 *{box-sizing:border-box}
@@ -25,8 +26,7 @@ html{scroll-behavior:smooth}
 body{
   margin:0;
   font-family: "Inter", Arial, sans-serif;
-  background: linear-gradient(180deg, #151836, #0f1220);
-  background-attachment: fixed;
+  background:var(--bg);
   color:var(--text);
   min-height:100vh;
   display:flex;
@@ -41,7 +41,8 @@ body{
   max-width:820px;
   border-radius:16px;
   padding:24px;
-  box-shadow:0 20px 50px rgba(0,0,0,.5);
+  border:1px solid #262a30;
+  box-shadow:0 12px 32px rgba(0,0,0,.35);
 }
 
 header{
@@ -64,25 +65,38 @@ header span{
 .tabs{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:6px;
-  background:var(--inner);
-  padding:6px;
-  border-radius:12px;
-  margin-bottom:20px;
+  gap:10px;
+  margin-bottom:22px;
 }
 
 .tabs button{
   margin:0;
-  background:transparent;
-  color:var(--muted);
-  padding:10px;
-  border-radius:8px;
-  font-size:.95rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  background:var(--inner);
+  color:var(--text);
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:12px;
+  font-size:1rem;
+  box-shadow:0 2px 0 rgba(0,0,0,.25);
 }
 
+.tabs button:hover{
+  filter:none;
+  border-color:var(--primary);
+  background:#272c33;
+}
+
+.tabs button .ico{font-size:1.1rem}
+
 .tabs button.active{
-  background:var(--primary);
-  color:#0f1220;
+  background:var(--primary-soft);
+  border-color:var(--primary);
+  color:#fff;
+  box-shadow:inset 0 -3px 0 var(--primary);
 }
 
 .panel{display:none}
@@ -152,11 +166,12 @@ header span{
 
 
 .summary .cobrar{
-  background: linear-gradient(135deg, #ff6c40, #ff9066);
-  color:#0f1220;
-  font-size:1.15rem;
-  font-weight:700;
-  box-shadow:0 10px 25px rgba(255,108,64,.35);
+  background:var(--primary-soft);
+  border:1px solid var(--primary);
+  color:var(--muted);
+  font-size:1rem;
+  font-weight:600;
+  letter-spacing:1px;
   text-transform: uppercase;
   flex-direction:column;
   align-items:center;
@@ -168,9 +183,8 @@ header span{
 .summary .cobrar strong{
   font-size:1.8rem;        /* bem maior */
   font-weight:800;
-  color:#0b0b0b;           /* preto quase total */
+  color:#fff;
   letter-spacing:0.5px;
-  text-shadow: 0 1px 0 rgba(255,255,255,0.35);
 }
 
 .summary strong{
@@ -180,8 +194,9 @@ header span{
 button{
   margin-top:20px;
   width:100%;
-  background:var(--primary);
-  border:none;
+  background:transparent;
+  color:var(--muted);
+  border:1px solid var(--line);
   border-radius:12px;
   padding:14px;
   font-size:1rem;
@@ -191,7 +206,8 @@ button{
 }
 
 button:hover{
-  filter:brightness(1.1);
+  color:var(--text);
+  border-color:var(--muted);
 }
 
 /* ===== Manual ===== */
@@ -262,7 +278,7 @@ button:hover{
   margin:10px 0;
   padding:8px 14px;
   border-left:3px solid var(--primary);
-  background:rgba(255,108,64,.08);
+  background:var(--primary-soft);
   border-radius:0 8px 8px 0;
 }
 
@@ -270,7 +286,7 @@ button:hover{
   color:var(--danger);
   font-weight:800;
   border-left-color:var(--danger);
-  background:rgba(248,113,113,.1);
+  background:rgba(224,138,138,.1);
 }
 
 .manual figure{
@@ -312,7 +328,7 @@ button:hover{
 }
 
 .manual th{
-  background:#1c2040;
+  background:#2a2f36;
   color:var(--primary);
 }
 
@@ -325,8 +341,8 @@ button:hover{
 }
 
 .manual .tip{
-  background:rgba(74,222,128,.08);
-  border:1px solid rgba(74,222,128,.3);
+  background:rgba(127,200,160,.08);
+  border:1px solid rgba(127,200,160,.3);
   border-radius:10px;
   padding:10px 14px;
   margin:10px 0;
@@ -350,8 +366,8 @@ button:hover{
   </header>
 
   <nav class="tabs">
-    <button type="button" data-tab="calculadora" onclick="showTab('calculadora')">Calculadora</button>
-    <button type="button" data-tab="manual" onclick="showTab('manual')">Manual</button>
+    <button type="button" data-tab="calculadora" onclick="showTab('calculadora')"><span class="ico">🧮</span> Calculadora</button>
+    <button type="button" data-tab="manual" onclick="showTab('manual')"><span class="ico">📖</span> Manual</button>
   </nav>
 
   <!-- ===================== CALCULADORA ===================== -->
@@ -407,7 +423,7 @@ button:hover{
         <li>Definir o padrão de uniforme da equipe.</li>
       </ul>
       <p>Use este manual como referência oficial para o funcionamento da mecânica.</p>
-      <p class="updated">Atualizado 02/03/2026</p>
+      <p class="updated">Atualizado 02/10/2026</p>
     </section>
 
     <section id="m-1">
@@ -416,11 +432,10 @@ button:hover{
       <h3>Direção da Bennys</h3>
       <p>A estrutura principal da Bennys é composta por:</p>
       <ul>
-        <li><strong>Antonio Carrijo (Toni)</strong> - Proprietário</li>
-        <li><strong>Robson Carrijo (Taker)</strong> - Sócio-Proprietário</li>
-        <li><strong>Pablito</strong> - Gerente da Mecânica</li>
+        <li><strong>Bruno Gonçalves (BG)</strong> - Proprietário</li>
+        <li><strong>Pablito Navalha (Pablito)</strong> - Sócio-Proprietário</li>
         <li><strong>Laura</strong> - Gerente</li>
-        <li><strong>BG</strong> - Gerente</li>
+        <li><strong>Antônio Carlos</strong> - Gerente</li>
         <li><strong>Luiz</strong> - Gerente</li>
         <li><strong>Drake (Japa)</strong> - Gerente</li>
         <li><strong>Arlindo</strong> - Gerente de Metas</li>
@@ -482,28 +497,27 @@ button:hover{
       <p><strong>PROIBIDO</strong> estocar Nitro em casa. Mantenha apenas o nitro da sua mochila que servirá para uso e evite quantidades exorbitantes.</p>
 
       <h3>Registro do Baú</h3>
-      <p>Todo item retirado e vendido deve ser registrado na Aba Vendas e Baú-Mec-entrada/saída.</p>
-      <p>Tenha <strong>MUITO CUIDADO</strong> e evite ficar retirando itens do baú sem registrar, passível de cobrança extrema.</p>
-
+      <p>Todo item retirado e vendido deve ser registrado no canal Vendas do DC.</p>
+    
       <h3>Valor Repassado</h3>
       <p><strong>Toda</strong> venda de nitro ou trava deve ter um valor repassado para a empresa.</p>
       <p>É <strong>PROIBIDO</strong> vender nitro para lucrar 100% para si, passível de punição <strong>EXTREMA</strong>.</p>
       <p>O nitro é dividido em 50% e a trava só será cobrado o preço de custo.</p>
 
       <h3>Nitro</h3>
-      <p>Deve repassar uma parte da venda para o PIX 6680 - Antonio Carrijo e registrar na aba Vendas.</p>
+      <p>Deve repassar uma parte da venda para o PIX 7697 - Bruno Gonçalves e registrar na aba Vendas.</p>
       <table>
         <thead><tr><th>Quantidade</th><th>Valor unitário</th><th>Valor repassado p 6680</th></tr></thead>
         <tbody>
           <tr><td>Padrão</td><td>R$5.000</td><td>R$2.500</td></tr>
-          <tr><td>+100</td><td>R$4.000</td><td>R$2.500</td></tr>
-          <tr><td>+200</td><td>R$3.500</td><td>R$2.000</td></tr>
-          <tr><td>+1.000</td><td>R$3.000</td><td>R$2.000</td></tr>
+          <tr><td>+100</td><td>R$4.000</td><td>R$2.000</td></tr>
+          <tr><td>+200</td><td>R$3.500</td><td>R$1.750</td></tr>
+          <tr><td>+1.000</td><td>R$3.000</td><td>R$1.500</td></tr>
         </tbody>
       </table>
 
       <h3>Trava</h3>
-      <p>Deve repassar R$5.000 da fabricaçao das travas para o PIX 6680 - Antonio Carrijo e registrar na aba Vendas.</p>
+      <p>Deve repassar R$5.000 da fabricaçao das travas para o PIX 7697 - Bruno Gonçalves e registrar na aba Vendas.</p>
       <table>
         <thead><tr><th>Quantidade</th><th>Valor unitário</th></tr></thead>
         <tbody>
@@ -744,28 +758,26 @@ button:hover{
       <h3>Uniforme feminino</h3>
       <h4>Obrigatório</h4>
       <ul>
-        <li><strong>Jaqueta:</strong> 609</li>
-        <li><strong>Camiseta:</strong> 261 (Cinto)</li>
-        <li><strong>Calça:</strong> preta (na referência enviada, calça 231)</li>
+        <li><strong>Jaqueta - qualquer opção de cor:</strong> 609</li>
+        <li><strong>Camisas - cinto:</strong> 261</li>
+        <li><strong>Calça ou bermuda:</strong> qualquer</li>
+        <li><strong>Calçado fechado:</strong> qualquer</li>
       </ul>
-      <h4>Opcional</h4>
-      <ul>
-        <li><strong>Luvas pretas:</strong> mãos 57</li>
-      </ul>
-      <figure><img src="manual-img/9.jpg" alt="Uniforme feminino" width="261" loading="lazy"></figure>
+      <figure><img src="manual-img/9.png" alt="Uniforme feminino" width="261" loading="lazy"></figure>
 
       <h3>Uniforme masculino</h3>
       <h4>Obrigatório</h4>
       <ul>
-        <li><strong>Jaqueta:</strong> 654</li>
-        <li><strong>Camiseta:</strong> 218 (Cinto)</li>
-        <li><strong>Calça:</strong> preta</li>
+        <li><strong>Jaqueta - qualquer opção de cor:</strong> 654</li>
+        <li><strong>Camisas - cinto:</strong> 218 (Cinto)</li>
+        <li><strong>Calça ou bermuda:</strong> qualquer</li>
+        <li><strong>Calçado fechado:</strong> qualquer</li>
       </ul>
       <h4>Opcional</h4>
       <ul>
         <li><strong>Luvas pretas</strong></li>
       </ul>
-      <figure><img src="manual-img/10.jpg" alt="Uniforme masculino" width="226" loading="lazy"></figure>
+      <figure><img src="manual-img/10.png" alt="Uniforme masculino" width="226" loading="lazy"></figure>
 
       <h3>Observação importante</h3>
       <p>O uniforme serve para organização e para identificarmos quem está em serviço.</p>
